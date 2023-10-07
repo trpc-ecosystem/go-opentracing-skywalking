@@ -31,17 +31,17 @@ plugins:
 component_id 配置点击[这里](https://github.com/apache/skywalking//blob/master/apm-protocol/apm-network/src/main/java/org/apache/skywalking/apm/network/trace/component/ComponentsDefine.java)
 ## 4.客户端配置
 ```yaml
-client:                                            #客户端调用的后端配置
-  timeout: 100000                                  #针对所有后端的请求最长处理时间
-  namespace: Development                           #针对所有后端的环境
-  service:                                         #针对单个后端的配置
-    - callee: trpc.weiling.test.Hello              #后端服务协议文件的 service name, 如何 callee 和下面的 name 一样，那只需要配置一个即可
-      name: trpc.weiling.test.Hello                #后端服务名字路由的 service name，有注册到名字服务的话，下面 target 可以不用配置
-      target: ip://127.0.0.1:8021                  #后端服务地址
-      network: tcp                                 #后端服务的网络类型 tcp udp
-      protocol: trpc                               #应用层协议 trpc http
-      timeout: 1000                              #请求最长处理时间
-      serialization: 0                             #序列化方式 0-pb 1-jce 2-json 3-flatbuffer，默认不要配置
+client:  # 客户端调用的后端配置
+  timeout: 100000  # 针对所有后端的请求最长处理时间
+  namespace: Development  # 针对所有后端的环境
+  service:  # 针对单个后端的配置
+    - callee: trpc.weiling.test.Hello  # 后端服务协议文件的 service name, 如何 callee 和下面的 name 一样，那只需要配置一个即可
+      name: trpc.weiling.test.Hello  # 后端服务名字路由的 service name，有注册到名字服务的话，下面 target 可以不用配置
+      target: ip://127.0.0.1:8021  # 后端服务地址
+      network: tcp  # 后端服务的网络类型 tcp udp
+      protocol: trpc  # 应用层协议 trpc http
+      timeout: 1000  # 请求最长处理时间
+      serialization: 0  # 序列化方式 0-pb 1-jce 2-json 3-flatbuffer，默认不要配置
       filter:
       - skywalking
 
@@ -52,21 +52,21 @@ client:                                            #客户端调用的后端配�
 
 ## 5.业务服务使用 skywalking
 ```yaml
-server:                                            #服务端配置
-  app: echo                                        #业务的应用名
-  server: hello                                    #进程服务名
-  bin_path: /usr/local/trpc/bin/                   #二进制可执行文件和框架配置文件所在路径
-  conf_path: /usr/local/trpc/conf/                 #业务配置文件所在路径
-  data_path: /usr/local/trpc/data/                 #业务数据文件所在路径
-  service:                                         #业务服务提供的 service，可以有多个
-    - name: trpc.weiling.test.Hello                #service 的路由名称
-      ip: 127.0.0.1                                #服务监听 ip 地址 可使用占位符 ${ip},ip 和 nic 二选一，优先 ip
-      nic: eth0                                    #服务监听的网卡地址 有 ip 就不需要配置
-      port: 8021                                   #服务监听端口 可使用占位符 ${port}
-      network: tcp                                 #网络监听类型  tcp udp
-      protocol: trpc                               #应用层协议 trpc http
-      timeout: 1000                               #请求最长处理时间 单位 毫秒
-      idletime: 3000                               #连接空闲时间 单位 毫秒
+server:  # 服务端配置
+  app: echo  # 业务的应用名
+  server: hello  # 进程服务名
+  bin_path: /usr/local/trpc/bin/  # 二进制可执行文件和框架配置文件所在路径
+  conf_path: /usr/local/trpc/conf/  # 业务配置文件所在路径
+  data_path: /usr/local/trpc/data/  # 业务数据文件所在路径
+  service:  # 业务服务提供的 service，可以有多个
+    - name: trpc.weiling.test.Hello  # service 的路由名称
+      ip: 127.0.0.1  # 服务监听 ip 地址 可使用占位符 ${ip},ip 和 nic 二选一，优先 ip
+      nic: eth0  # 服务监听的网卡地址 有 ip 就不需要配置
+      port: 8021  # 服务监听端口 可使用占位符 ${port}
+      network: tcp  # 网络监听类型  tcp udp
+      protocol: trpc  # 应用层协议 trpc http
+      timeout: 1000  # 请求最长处理时间 单位 毫秒
+      idletime: 3000  # 连接空闲时间 单位 毫秒
       filter:
         - skywalking
 ```
