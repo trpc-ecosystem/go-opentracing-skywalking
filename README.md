@@ -1,14 +1,14 @@
 # tRPC OpenTracing SkyWalking 插件
 ## 1.Skywalking 安装
-  1. 安装 docker docker-compose
-  2. 运行 docker-compose.yml 
-    ```shell
-        docker-compose up -d
-    ```
+1. 安装 docker docker-compose
+2. 运行 docker-compose.yml 
+```shell
+docker-compose up -d
+```
 
 ## 2.在业务代码上导入包
 ```go
-   _ "trpc.group/trpc-go/trpc-opentracing-skywalking"
+    _ "trpc.group/trpc-go/trpc-opentracing-skywalking"
 ```
 
 ## 3.插件配置
