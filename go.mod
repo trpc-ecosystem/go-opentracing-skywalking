@@ -8,7 +8,7 @@ require (
 	github.com/stretchr/testify v1.8.0
 	gopkg.in/yaml.v3 v3.0.1
 	skywalking.apache.org/repo/goapi v0.0.0-20210401062122-a049ca15c62d
-	trpc.group/trpc-go/trpc-go v0.0.0-20231007030028-60e879fb57b8
+	trpc.group/trpc-go/trpc-go v1.0.0
 )
 
 require (
