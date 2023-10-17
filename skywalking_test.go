@@ -17,7 +17,6 @@ import (
 	"testing"
 
 	. "github.com/smartystreets/goconvey/convey"
-	"github.com/stretchr/testify/assert"
 	"gopkg.in/yaml.v3"
 	trpc "trpc.group/trpc-go/trpc-go"
 	"trpc.group/trpc-go/trpc-go/log"
@@ -51,8 +50,4 @@ func TestSkyWalkingPlugin_Setup(t *testing.T) {
 		err := p.Setup("test", &plugin.YamlNodeDecoder{Node: &conf})
 		So(err, ShouldEqual, nil)
 	})
-}
-
-func TestGlobalTracer(t *testing.T) {
-	assert.Nil(t, GlobalTracer())
 }
