@@ -1,4 +1,6 @@
-# tRPC OpenTracing SkyWalking 插件
+[English](README.md) | 中文
+
+# OpenTracing SkyWalking 插件
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/trpc-ecosystem/go-opentracing-skywalking.svg)](https://pkg.go.dev/github.com/trpc-ecosystem/go-opentracing-skywalking)
 [![Go Report Card](https://goreportcard.com/badge/trpc.group/trpc-go/trpc-opentracing-skywalking)](https://goreportcard.com/report/trpc.group/trpc-go/trpc-opentracing-skywalking)
@@ -7,19 +9,23 @@
 [![Tests](https://github.com/trpc-ecosystem/go-opentracing-skywalking/actions/workflows/prc.yml/badge.svg)](https://github.com/trpc-ecosystem/go-opentracing-skywalking/actions/workflows/prc.yml)
 [![Coverage](https://codecov.io/gh/trpc-ecosystem/go-opentracing-skywalking/branch/main/graph/badge.svg)](https://app.codecov.io/gh/trpc-ecosystem/go-opentracing-skywalking/tree/main)
 
-## 1.Skywalking 安装
+## 安装 Skywalking 
+
 1. 安装 docker docker-compose
-2. 运行 docker-compose.yml 
+2. 运行 docker-compose.yml
+
 ```shell
 docker-compose up -d
 ```
 
-## 2.在业务代码上导入包
+## 导入包
+
 ```go
     _ "trpc.group/trpc-go/trpc-opentracing-skywalking"
 ```
 
-## 3.插件配置
+## 配置插件
+
 ```yaml
 plugins:
  tracing:
@@ -37,28 +43,9 @@ plugins:
 
 ```
 component_id 配置点击[这里](https://github.com/apache/skywalking//blob/master/apm-protocol/apm-network/src/main/java/org/apache/skywalking/apm/network/trace/component/ComponentsDefine.java)
-## 4.客户端配置
-```yaml
-client:  # 客户端调用的后端配置
-  timeout: 100000  # 针对所有后端的请求最长处理时间
-  namespace: Development  # 针对所有后端的环境
-  service:  # 针对单个后端的配置
-    - callee: trpc.weiling.test.Hello  # 后端服务协议文件的 service name, 如何 callee 和下面的 name 一样，那只需要配置一个即可
-      name: trpc.weiling.test.Hello  # 后端服务名字路由的 service name，有注册到名字服务的话，下面 target 可以不用配置
-      target: ip://127.0.0.1:8021  # 后端服务地址
-      network: tcp  # 后端服务的网络类型 tcp udp
-      protocol: trpc  # 应用层协议 trpc http
-      timeout: 1000  # 请求最长处理时间
-      serialization: 0  # 序列化方式 0-pb 1-jce 2-json 3-flatbuffer，默认不要配置
-      filter:
-      - skywalking
 
-```
-这里也可以在使用 trpc client proxy 时传入这个 `client.Option,client.WithFilter(filter.GetClient("skywalking")), `
-从而不在 trpc_go.yaml 里面进行 client 的配置
+## 配置服务端
 
-
-## 5.业务服务使用 skywalking
 ```yaml
 server:  # 服务端配置
   app: echo  # 业务的应用名
@@ -79,5 +66,29 @@ server:  # 服务端配置
         - skywalking
 ```
 
-## 6.本地查看 skywalking 分布式追踪数据
+## 配置客户端
+
+```yaml
+client:  # 客户端调用的后端配置
+  timeout: 100000  # 针对所有后端的请求最长处理时间
+  namespace: Development  # 针对所有后端的环境
+  service:  # 针对单个后端的配置
+    - callee: trpc.weiling.test.Hello  # 后端服务协议文件的 service name, 如何 callee 和下面的 name 一样，那只需要配置一个即可
+      name: trpc.weiling.test.Hello  # 后端服务名字路由的 service name，有注册到名字服务的话，下面 target 可以不用配置
+      target: ip://127.0.0.1:8021  # 后端服务地址
+      network: tcp  # 后端服务的网络类型 tcp udp
+      protocol: trpc  # 应用层协议 trpc http
+      timeout: 1000  # 请求最长处理时间
+      serialization: 0  # 序列化方式 0-pb 1-jce 2-json 3-flatbuffer，默认不要配置
+      filter:
+      - skywalking
+
+```
+
+这里也可以在使用 trpc client proxy 时传入这个 `client.Option,client.WithFilter(filter.GetClient("skywalking")), `
+从而不在 trpc_go.yaml 里面进行 client 的配置
+
+
+## 本地查看 skywalking 分布式追踪数据
+
 http://localhost:8080
